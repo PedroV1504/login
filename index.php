@@ -18,7 +18,17 @@ if (isset($_POST["email"]) || isset($_POST["senha"])) {
     $quantidade = $sql_query->num_rows;
 
     if ($quantidade == 1) {
+
       $usuario = $sql_query->fetch_assoc();
+
+      if (!isset($_SESSION)) {
+        session_start();
+      }
+
+      $_SESSION['id'] = $usuario['id'];
+      $_SESSION['nome'] = $usuario['nome'];
+
+      header("Locatio: paniel.php");
     } else {
       echo "falha ao logar! e-mail ou senha incorretos";
     }
@@ -40,7 +50,7 @@ if (isset($_POST["email"]) || isset($_POST["senha"])) {
   <form action="" method="POST"></form>
   <p>
     <label>"e-mail"></label>
-    <input type="text" nome="email">
+    <input type="text" nome="e-mail">
   </p>
   <p>
     <label>"Senha"></label>
